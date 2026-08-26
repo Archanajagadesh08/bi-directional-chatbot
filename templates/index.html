@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEMINI CHATBOT</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://code.iconify.design/iconify-icon/3.0.2/iconify-icon.min.js"></script>
+    <script src="../static/script.js" defer></script>
+</head>
+
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h1>SyncAI</h1>
+            <p>Real-Time Bidirectional AI Assistantt</p>
+        </header>
+        <main class="chat-box" id="chatBox">
+            <div class="mode-selection">
+                <div class="mode-title">What would you like to do?</div>
+                <div class="mode-options">
+                    <button class="mode-button" data-mode="coding">Coding</button>
+                    <button class="mode-button" data-mode="writing">Writing</button>
+                    <button class="mode-button" data-mode="study">Study</button>
+                    <button class="mode-button" data-mode="research">Research</button>
+                    <button class="mode-button" data-mode="general">General</button>
+                </div>
+            </div>
+
+        </main>
+        <div class="input-area">
+            <div id="attachmentPreview" class="attachment-preview"></div>
+            <button id="attachButton" type="button" title="Attach file"><svg xmlns="http://www.w3.org/2000/svg"
+                    height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                    <path
+                        d="M640-520v-200h80v200h-80ZM440-244q-35-10-57.5-39T360-350v-370h80v476Zm30 164q-104 0-177-73t-73-177v-370q0-75 52.5-127.5T400-880q75 0 127.5 52.5T580-700v300h-80v-300q-1-42-29.5-71T400-800q-42 0-71 29t-29 71v370q-1 71 49 120.5T470-160q25 0 47.5-6.5T560-186v89q-21 8-43.5 12.5T470-80Zm170-40v-120H520v-80h120v-120h80v120h120v80H720v120h-80Z" />
+                </svg></button>
+            <input type="file" id="fileInput" accept="image/*" hidden>
+            <input type="text" id="userInput" placeholder="Type your message.." autocomplete="off">
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>
