@@ -1,6 +1,7 @@
 //get DOM elements 
 const sendButton = document.getElementById("sendButton");
 const chatBox = document.getElementById("chatBox");
+const changeModeButton = document.getElementById("changeModeButton");
 const modelSelection = document.querySelector(".mode-selection");
 //handle file attachments
 const attachButton = document.getElementById("attachButton");
@@ -223,16 +224,18 @@ modeButtons.forEach(btn => {
         modeSelection.style.display = "none";
         modeWelcome.style.display = "block";
         //display the selected mode and provide an options to change it
-        modeWelcome.innerHTML = `<div class="mode-welcome-title">${getModeIcon(selectedMode)}${selectedMode} Mode </div>
-                        <div class= "mode-welcome-text"> You're currently using ${selectedMode} Mode. How can I help you?</div>
-                        <div class="mode-welcome-text">Ready for ${selectedMode.toLowerCase()}?<iconify-icon icon ="mdi:sparkels"></iconify-icon> </div>
-                        <button id="changeModeButton" class="change-mode-button">Change Mode </button> `;
+        modeWelcome.innerHTML = `<div class="mode-status">
+        <div class="mode info"><span class="mode-status-icon">${getModeIcon(selectedMode)}</span>
+        <span class="mode-status-text">${selectedMode} Mode</span>
+        </div>
+        <span class="mode-status-active"><span class="active-dot"></span>Active</span>
+        </div>`;
         inputArea.style.display = "flex";
-        document.getElementById("changeModeButton")
-            .addEventListener("click", changeMode);
         userInput.focus();
     });
-});//reset the chat and return to the mode selection screen
+});
+changeModeButton.addEventListener("click",changeMode);
+//reset the chat and return to the mode selection screen
 function changeMode() {
     //clear the pervious chat messages when switching modes
     chatBox.querySelectorAll(".message").forEach(message =>{message.remove();});

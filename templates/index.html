@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEMINI CHATBOT</title>
+    <title>BI-DIRECTIONAL CHATBOT</title>
     <link rel="stylesheet" href="../static/style.css">
     <script src="https://code.iconify.design/iconify-icon/3.0.2/iconify-icon.min.js"></script>
     <script src="../static/script.js" defer></script>
@@ -14,7 +14,7 @@
     <div class="chat-container">
         <header class="chat-header">
             <h1>SyncAI</h1>
-            <p>Real-Time Bidirectional AI Assistantt</p>
+            <p>Real-Time Bidirectional AI Assistant</p>
         </header>
         <main class="chat-box" id="chatBox">
             <div class="mode-selection">
@@ -39,6 +39,9 @@
             <input type="file" id="fileInput" accept="image/*" hidden>
             <input type="text" id="userInput" placeholder="Type your message.." autocomplete="off">
             <button id="sendButton">Send</button>
+            <button id="changeModeButton" class="change-mode-button" type="button" title="Change Mode">
+                <iconify-icon icon="mdi:swap-horizontal"></iconify-icon><span> Mode</span></button>
+            
         </div>
     </div>
 
