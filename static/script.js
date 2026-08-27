@@ -108,6 +108,7 @@ connectWebSocket();
 sendButton.addEventListener("click", async () => {
     const message = userInput.value.trim();
     const file = fileInput.files && fileInput.files.length > 0 ? fileInput.files[0] : null;
+    
      //prevent sending a message before selecting a mode
     if (!selectedMode) {
         return;
@@ -147,7 +148,7 @@ sendButton.addEventListener("click", async () => {
         }
         userMessage.innerHTML = content;
         chatBox.appendChild(userMessage);
-        chatBox.scrolltop = chatBox.scrollHeight
+        chatBox.scrollTop = chatBox.scrollHeight;
 
     }
 
@@ -190,7 +191,8 @@ sendButton.addEventListener("click", async () => {
             file: fileData,
             mode: selectedMode
         }));
-    }//clear the input fields and file preview after sending
+    }
+    //clear the input fields and file preview after sending
     userInput.value = "";
     fileInput.value = "";
     filePreview.innerHTML = "";
@@ -210,6 +212,13 @@ const inputArea = document.querySelector(".input-area");
 const userInput = document.getElementById("userInput");
 //Hide the input area until a mode is selected
 inputArea.style.display = "none";
+//enter key press should also send the message
+userInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+       sendButton.click();
+    }
+});
 //handle chatbot selection
 modeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -226,9 +235,8 @@ modeButtons.forEach(btn => {
         //display the selected mode and provide an options to change it
         modeWelcome.innerHTML = `<div class="mode-status">
         <div class="mode info"><span class="mode-status-icon">${getModeIcon(selectedMode)}</span>
-        <span class="mode-status-text">${selectedMode} Mode</span>
+        <span class="mode-status-text">${selectedMode.charAt(0).toUpperCase() + selectedMode.slice(1)} Mode</span>
         </div>
-        <span class="mode-status-active"><span class="active-dot"></span>Active</span>
         </div>`;
         inputArea.style.display = "flex";
         userInput.focus();
@@ -266,5 +274,4 @@ function getModeIcon(mode) {
     console.log("mode key:",modekey);
     console.log("Icon:",icon);
     return `<iconify-icon icon="${icon}"></iconify-icon>`;
-
 }
