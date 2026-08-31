@@ -4,6 +4,8 @@ from fastapi import APIRouter,WebSocket,WebSocketDisconnect
 from app.files.file_service import create_file_part
 from app.schemas.gemini_schema import GeminiRequest
 from app.services.gemini_service import send_to_gemini
+from app.database.database import SessionLocal
+from app.database.models import ChatMessage
 router = APIRouter()
 #WebSocket connection
 @router.websocket("/ws")
@@ -31,6 +33,16 @@ async def websocket_endpoint(websocket :WebSocket):
             response = await asyncio.to_thread(
                 send_to_gemini, contents
             )
+            db = SessionLocal()
+            try:
+                chat_message = ChatMessage(
+                    message=request.message or "",
+                    response=response or "",
+                    mode=request.mode or "default",)
+                db.add(chat_message)
+                db.commit()
+            finally:
+                db.close()
             await websocket.send_text(response)
             #Handle webSocket errors
         except WebSocketDisconnect:
