@@ -9,3 +9,4 @@ class GeminiRequest(BaseModel):
     message: Optional[str] =""
     file: Optional[FileData]=None
     mode: Optional[str]=None
+    conversation_id:Optional[str]=None

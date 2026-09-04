@@ -36,9 +36,15 @@ fileInput.addEventListener("change", () => {
 });
 let socket;
 let typingMessage = null;
+let conversationID = null;
 //Establish a websocket connection with the backend
 function connectWebSocket() {
-    socket = new WebSocket("ws://127.0.0.1:8000/ws");
+    const token = localStorage.getItem("access_token");
+    if ((!token)){
+        console.error("No access token found");
+        return;
+    }
+    socket = new WebSocket(`ws://127.0.0.1:8000/ws?token=${token}`);
     //Handle websocket connection errors
     socket.onopen = () => {
         console.log("Webdocket connected");
@@ -53,7 +59,7 @@ function connectWebSocket() {
             "websocket disconnected:", event.code, event.reason
         );
         sendButton.disabled = true;
-        setTimeout(connectWebSocket, 1000);
+        //setTimeout(connectWebSocket, 1000);
     };
 //format the Gemini response into readable HTML
     function formatGeminiResponse(text) {
@@ -90,6 +96,8 @@ function connectWebSocket() {
     }
 //Handle response received from the backend 
     socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        conversationID = data.conversationid;
         //remove the typing indicator when the reponse arrives
         if (typingMessage) {
             typingMessage.remove();
@@ -99,7 +107,7 @@ function connectWebSocket() {
         const botMessage = document.createElement("div");
         botMessage.className = "message bot-message";
         botMessage.innerHTML = `<div class ="message-label">Assistant</div>
-                <div class ="message-text"> ${formatGeminiResponse(event.data)} </div>`;
+                <div class ="message-text"> ${formatGeminiResponse(data.response)} </div>`;
         chatBox.appendChild(botMessage);
         chatBox.scrolltop = chatBox.scrollHeight;
     };
@@ -189,7 +197,8 @@ sendButton.addEventListener("click", async () => {
         socket.send(JSON.stringify({
             message: message,
             file: fileData,
-            mode: selectedMode
+            mode: selectedMode,
+            conversationid : conversationID
         }));
     }
     //clear the input fields and file preview after sending
