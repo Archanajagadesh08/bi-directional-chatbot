@@ -45,3 +45,4 @@
                     togglePasswordButton.setAttribute('aria-label', 'Show password');
                 }
             });
+            

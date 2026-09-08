@@ -3,3 +3,5 @@
 __pycache__/
 node_modules/
 chat_history.json
+logs/
+websocket_json_demo.py

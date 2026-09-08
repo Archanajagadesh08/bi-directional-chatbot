@@ -13,7 +13,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
             "/auth/register",
             "/docs",
             "/openapi.json",
-            "/redoc"
+            "/redoc",
+            "/favicon.ico"
         ]
         #Allow public routes and static files without authentication 
         if request.url.path in public_paths or request.url.path.startswith("/static"):

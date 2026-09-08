@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Text,DateTime,ForeignKey,Enum
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID,JSONB
 import uuid
 from enum import Enum as PyEnum
 from datetime import datetime
