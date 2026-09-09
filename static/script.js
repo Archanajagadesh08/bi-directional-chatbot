@@ -3,6 +3,7 @@ const sendButton = document.getElementById("sendButton");
 const chatBox = document.getElementById("chatBox");
 const changeModeButton = document.getElementById("changeModeButton");
 const modelSelection = document.querySelector(".mode-selection");
+const logoutButton = document.getElementById("logoutButton");
 //handle file attachments
 const attachButton = document.getElementById("attachButton");
 const fileInput = document.getElementById("fileInput");
@@ -284,3 +285,13 @@ function getModeIcon(mode) {
     console.log("Icon:",icon);
     return `<iconify-icon icon="${icon}"></iconify-icon>`;
 }
+//logout button 
+logoutButton.addEventListener("click",()=>{
+    if (socket && socket.readyState === WebSocket.OPEN){
+        socket.close();
+    }
+    //remove the JWT access token
+    localStorage.removeItem("access_token");
+    //Return to the login page
+    window.location.href ='/login';
+});
